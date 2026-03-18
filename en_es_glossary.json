@@ -1,0 +1,20 @@
+{
+  "_comment": "English to Spanish glossary — Healthcare domain. Used by translate_with_glossary.py to enforce approved terminology during LLM translation.",
+  "_language_pair": "EN/ES",
+  "_domain": "Healthcare / Insurance",
+  "member enrollment": "inscripción de miembros",
+  "health plan": "plan de salud",
+  "prior authorization": "autorización previa",
+  "claim form": "formulario de reclamación",
+  "benefit period": "período de beneficios",
+  "deductible": "deducible",
+  "copayment": "copago",
+  "out-of-pocket maximum": "límite de gastos de bolsillo",
+  "network provider": "proveedor en red",
+  "explanation of benefits": "explicación de beneficios",
+  "coverage": "cobertura",
+  "premium": "prima",
+  "in-network": "dentro de la red",
+  "out-of-network": "fuera de la red",
+  "primary care physician": "médico de atención primaria"
+}
