@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<!-- saved from url=(0045)file:///C:/Users/vaish/Downloads/index_8.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LinguaAI — Intelligent Translation Studio</title>
+<link href="./LinguaAI — Intelligent Translation Studio_files/css2" rel="stylesheet">
+<style>
+:root{
+  --cream:#faf7f2;--cream2:#f3ede3;--cream3:#ede4d6;--warm:#fffdf9;
+  --ink:#1c1714;--ink2:#3d3530;--ink3:#6b5f58;--ink4:#9e9089;--ink5:#c8bfb8;
+  --sage:#4a7c59;--sage-l:#e8f2eb;--sage-m:#b8d4bf;
+  --amber:#c47c2b;--amber-l:#fdf0e0;--amber-m:#e8c48a;
+  --rose:#b85450;--rose-l:#fdecea;
+  --sky:#3a6fa8;--sky-l:#e8f0f9;--sky-m:#a8c4e0;
+  --plum:#6b3fa0;--plum-l:#f0eaf8;--plum-m:#c9aee8;
+  --border:#e0d8cf;--border2:#cfc5ba;
+  --sh:rgba(28,23,20,0.08);--sh2:rgba(28,23,20,0.14);
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'Nunito',sans-serif;
+  --mono:'JetBrains Mono',monospace;
+  --r:14px;--rs:8px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--cream);color:var(--ink);font-family:var(--sans);min-height:100vh;overflow-x:hidden}
+
+/* ── SIDEBAR ── */
+.sidebar{position:fixed;left:0;top:0;bottom:0;width:248px;background:var(--warm);border-right:1px solid var(--border);display:flex;flex-direction:column;z-index:100;box-shadow:2px 0 20px var(--sh)}
+.s-logo{padding:26px 22px 20px;border-bottom:1px solid var(--border)}
+.logo-row{display:flex;align-items:center;gap:11px;margin-bottom:3px}
+.logo-orb{width:34px;height:34px;background:linear-gradient(135deg,var(--sage),#2d5e3e);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:17px;box-shadow:0 4px 12px rgba(74,124,89,0.3);flex-shrink:0}
+.logo-name{font-family:var(--serif);font-size:19px;font-weight:700;color:var(--ink);letter-spacing:-.3px}
+.logo-tag{font-size:10.5px;color:var(--ink4);padding-left:45px;letter-spacing:.02em}
+.nav-wrap{padding:16px 12px;flex:1;display:flex;flex-direction:column;gap:1px;overflow-y:auto}
+.nav-lbl{font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink5);padding:12px 10px 5px}
+.nav-item{display:flex;align-items:center;gap:9px;padding:9px 11px;border-radius:var(--rs);cursor:pointer;transition:all .16s;font-size:13px;font-weight:600;color:var(--ink3);border:1.5px solid transparent;text-decoration:none}
+.nav-item:hover{background:var(--cream2);color:var(--ink)}
+.nav-item.active{background:var(--sage-l);color:var(--sage);border-color:var(--sage-m)}
+.nav-icon{width:18px;text-align:center;font-size:14px;flex-shrink:0}
+.nav-pill{margin-left:auto;font-size:9.5px;font-weight:700;padding:2px 6px;border-radius:20px;font-family:var(--mono)}
+.p-red{background:var(--rose-l);color:var(--rose)}
+.p-green{background:var(--sage-l);color:var(--sage)}
+.p-amber{background:var(--amber-l);color:var(--amber)}
+.p-plum{background:var(--plum-l);color:var(--plum)}
+.s-foot{padding:14px 12px;border-top:1px solid var(--border)}
+.u-card{display:flex;align-items:center;gap:9px;padding:9px 11px;border-radius:var(--rs);background:var(--cream2);border:1px solid var(--border)}
+.u-av{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--amber),#9a5f1e);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;flex-shrink:0}
+.u-name{font-size:12.5px;font-weight:700;color:var(--ink)}
+.u-role{font-size:10.5px;color:var(--ink4);margin-top:1px}
+
+/* ── MAIN ── */
+.main{margin-left:248px;min-height:100vh;display:flex;flex-direction:column}
+.topbar{height:58px;background:var(--warm);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 30px;gap:12px;position:sticky;top:0;z-index:50;box-shadow:0 2px 12px var(--sh)}
+.bc{display:flex;align-items:center;gap:7px;font-size:11.5px;color:var(--ink4);font-family:var(--mono)}
+.bc-sep{color:var(--ink5)}
+.bc-cur{color:var(--ink2);font-weight:500}
+.tb-r{margin-left:auto;display:flex;align-items:center;gap:9px}
+
+/* ── BUTTONS ── */
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 17px;border-radius:40px;font-family:var(--sans);font-size:12.5px;font-weight:600;cursor:pointer;transition:all .17s;border:none;outline:none;white-space:nowrap}
+.btn-primary{background:var(--sage);color:#fff;box-shadow:0 4px 14px rgba(74,124,89,.35)}
+.btn-primary:hover{background:#3d6b4a;transform:translateY(-1px);box-shadow:0 6px 20px rgba(74,124,89,.45)}
+.btn-outline{background:transparent;border:1.5px solid var(--border2);color:var(--ink3)}
+.btn-outline:hover{background:var(--cream2);color:var(--ink)}
+.btn-amber{background:var(--amber);color:#fff;box-shadow:0 4px 14px rgba(196,124,43,.3)}
+.btn-amber:hover{background:#a96a22;transform:translateY(-1px)}
+.btn-plum{background:var(--plum);color:#fff;box-shadow:0 4px 14px rgba(107,63,160,.3)}
+.btn-plum:hover{background:#5a3388;transform:translateY(-1px)}
+.btn-sm{padding:5px 13px;font-size:11.5px}
+
+/* ── CONTENT ── */
+.content{padding:30px;flex:1}
+.pg-hd{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:26px}
+.pg-title{font-family:var(--serif);font-size:27px;font-weight:700;color:var(--ink);letter-spacing:-.5px;line-height:1.2}
+.pg-sub{font-size:12.5px;color:var(--ink4);margin-top:4px}
+
+/* ── CARDS ── */
+.card{background:var(--warm);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:0 2px 12px var(--sh);transition:box-shadow .2s}
+.card:hover{box-shadow:0 4px 24px var(--sh2)}
+.card-hd{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.card-title{font-family:var(--serif);font-size:14.5px;font-weight:600;color:var(--ink);display:flex;align-items:center;gap:7px}
+.card-body{padding:20px}
+
+/* ── STATS ── */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:22px}
+.stat{background:var(--warm);border:1px solid var(--border);border-radius:var(--r);padding:18px 20px;box-shadow:0 2px 10px var(--sh);position:relative;overflow:hidden}
+.stat::before{content:'';position:absolute;bottom:0;left:0;right:0;height:3px}
+.s-sage::before{background:linear-gradient(90deg,var(--sage),var(--sage-m))}
+.s-amber::before{background:linear-gradient(90deg,var(--amber),var(--amber-m))}
+.s-rose::before{background:linear-gradient(90deg,var(--rose),#d4837f)}
+.s-sky::before{background:linear-gradient(90deg,var(--sky),var(--sky-m))}
+.s-plum::before{background:linear-gradient(90deg,var(--plum),var(--plum-m))}
+.s-neutral::before{background:linear-gradient(90deg,var(--border2),var(--ink5))}
+.sv{font-family:var(--serif);font-size:32px;font-weight:700;letter-spacing:-1px;line-height:1;margin-bottom:5px}
+.v-sage{color:var(--sage)}.v-amber{color:var(--amber)}.v-rose{color:var(--rose)}.v-sky{color:var(--sky)}.v-plum{color:var(--plum)}.v-ink{color:var(--ink3)}
+.sl{font-size:11.5px;color:var(--ink4);font-weight:500}
+
+/* ── GRIDS ── */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px}
+.g-left{display:grid;grid-template-columns:1.6fr 1fr;gap:18px}
+.col{display:flex;flex-direction:column;gap:18px}
+
+/* ── FILE ROWS ── */
+.file-row{display:flex;align-items:center;gap:13px;padding:13px 16px;border-radius:var(--rs);border:1px solid var(--border);background:var(--cream);margin-bottom:9px;transition:all .17s;cursor:pointer}
+.file-row:last-child{margin-bottom:0}
+.file-row:hover{background:var(--cream2);border-color:var(--border2);transform:translateX(2px)}
+.f-thumb{width:38px;height:38px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+.t-pdf{background:var(--rose-l)}.t-docx{background:var(--sky-l)}
+.f-name{font-size:13px;font-weight:600;color:var(--ink)}
+.f-meta{font-size:10.5px;color:var(--ink4);margin-top:2px;font-family:var(--mono)}
+.s-badge{margin-left:auto;display:flex;align-items:center;gap:5px;font-size:11.5px;font-weight:600;padding:4px 10px;border-radius:20px;flex-shrink:0}
+.sb-done{background:var(--sage-l);color:var(--sage)}
+.sb-proc{background:var(--sky-l);color:var(--sky)}
+.sb-rev{background:var(--amber-l);color:var(--amber)}
+.bdot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.d-sage{background:var(--sage)}.d-sky{background:var(--sky);animation:blink 1.4s infinite}.d-amber{background:var(--amber)}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+
+/* ── DROP ZONE ── */
+.dropzone{border:2px dashed var(--border2);border-radius:var(--r);padding:42px 22px;text-align:center;cursor:pointer;transition:all .2s;background:var(--cream)}
+.dropzone:hover{border-color:var(--sage);background:var(--sage-l)}
+.dz-icon{font-size:36px;margin-bottom:12px}
+.dz-title{font-family:var(--serif);font-size:16px;font-weight:600;color:var(--ink);margin-bottom:5px}
+.dz-sub{font-size:12px;color:var(--ink4);margin-bottom:18px}
+.fmt-chips{display:flex;justify-content:center;gap:7px;flex-wrap:wrap}
+.fmt-chip{padding:3px 11px;background:var(--warm);border:1px solid var(--border2);border-radius:20px;font-size:10.5px;font-family:var(--mono);color:var(--ink3)}
+
+/* ── QUALITY ISSUES ── */
+.issue{display:flex;align-items:flex-start;gap:13px;padding:15px 18px;border-bottom:1px solid var(--border);transition:background .14s;cursor:pointer}
+.issue:last-child{border-bottom:none}
+.issue:hover{background:var(--cream)}
+.sev{padding:3px 9px;border-radius:20px;font-size:10.5px;font-weight:700;flex-shrink:0;margin-top:2px;font-family:var(--mono)}
+.sev-h{background:var(--rose-l);color:var(--rose)}
+.sev-m{background:var(--amber-l);color:var(--amber)}
+.sev-l{background:var(--sky-l);color:var(--sky)}
+.i-title{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:4px}
+.i-desc{font-size:12px;color:var(--ink3);line-height:1.6}
+.fix-btn{display:inline-flex;align-items:center;gap:4px;margin-top:7px;font-size:11.5px;font-weight:600;color:var(--sage);background:var(--sage-l);border:none;padding:4px 11px;border-radius:20px;cursor:pointer;transition:all .14s}
+.fix-btn:hover{background:var(--sage-m)}
+
+/* ── PROGRESS BAR ── */
+.pb-wrap{background:var(--cream3);border-radius:99px;height:6px;overflow:hidden}
+.pb-fill{height:100%;border-radius:99px;transition:width 1.2s ease}
+
+/* ── EDITOR ── */
+.editor{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:0 2px 16px var(--sh)}
+.e-col{background:var(--warm)}
+.e-col+.e-col{border-left:1px solid var(--border)}
+.e-col-hd{padding:13px 18px;background:var(--cream2);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.lang-lbl{display:flex;align-items:center;gap:7px;font-weight:700;font-size:12.5px;color:var(--ink)}
+.seg{padding:15px 18px;border-bottom:1px solid var(--border);cursor:pointer;transition:background .13s}
+.seg:last-child{border-bottom:none}
+.seg:hover{background:var(--cream)}
+.seg.active{background:var(--sage-l);border-left:3px solid var(--sage)}
+.seg-meta{display:flex;align-items:center;gap:7px;margin-bottom:7px;font-size:10.5px;color:var(--ink4);font-family:var(--mono)}
+.tm-tag{padding:2px 7px;border-radius:20px;font-size:10px;font-weight:600}
+.tm-e{background:var(--sage-l);color:var(--sage)}
+.tm-f{background:var(--amber-l);color:var(--amber)}
+.tm-a{background:var(--sky-l);color:var(--sky)}
+.tm-ok{background:var(--sage-l);color:var(--sage)}
+.seg-txt{font-size:13px;color:var(--ink);line-height:1.7}
+.hl-g{background:rgba(74,124,89,.12);color:var(--sage);border-radius:3px;padding:0 3px;font-weight:600;border-bottom:1.5px solid var(--sage-m)}
+.hl-w{background:var(--amber-l);color:var(--amber);border-radius:3px;padding:0 3px;font-weight:600}
+.seg-acts{display:flex;gap:5px;margin-top:9px}
+.sa{padding:5px 12px;border-radius:20px;font-size:11.5px;font-weight:600;cursor:pointer;border:none;transition:all .14s;font-family:var(--sans)}
+.sa-ok{background:var(--sage-l);color:var(--sage)}.sa-ok:hover{background:var(--sage-m)}
+.sa-ed{background:var(--cream2);color:var(--ink3);border:1px solid var(--border2)}.sa-ed:hover{background:var(--cream3)}
+.sa-no{background:var(--rose-l);color:var(--rose)}.sa-no:hover{background:#f9d4d3}
+
+/* ── GLOSSARY TABLE ── */
+.g-row{display:flex;align-items:center;padding:10px 18px;border-bottom:1px solid var(--border);gap:9px;transition:background .13s}
+.g-row:hover{background:var(--cream)}
+.g-row:last-child{border-bottom:none}
+.g-src{flex:1;font-size:12.5px;color:var(--ink2);font-weight:500}
+.g-arr{color:var(--ink5);font-size:15px}
+.g-tgt{flex:1;font-size:12.5px;color:var(--sage);font-weight:600}
+.g-pair{font-size:9.5px;font-family:var(--mono);background:var(--cream2);border:1px solid var(--border);padding:2px 6px;border-radius:3px;color:var(--ink4)}
+
+/* ── PROFILE TILES ── */
+.p-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
+.p-tile{padding:14px 10px;border:1.5px solid var(--border);border-radius:var(--rs);cursor:pointer;transition:all .17s;text-align:center;background:var(--cream)}
+.p-tile:hover{border-color:var(--sage-m);background:var(--sage-l)}
+.p-tile.on{border-color:var(--sage);background:var(--sage-l);box-shadow:0 0 0 3px rgba(74,124,89,.12)}
+.p-em{font-size:22px;margin-bottom:6px}
+.p-nm{font-size:11.5px;font-weight:700;color:var(--ink)}
+.p-ds{font-size:10.5px;color:var(--ink4);margin-top:3px}
+
+/* ── LANG CHIPS ── */
+.l-chips{display:flex;flex-wrap:wrap;gap:7px}
+.l-chip{padding:5px 13px;border:1.5px solid var(--border2);border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;transition:all .17s;color:var(--ink3);background:var(--cream);display:flex;align-items:center;gap:5px}
+.l-chip:hover{border-color:var(--sage);color:var(--sage);background:var(--sage-l)}
+.l-chip.on{background:var(--sage-l);border-color:var(--sage);color:var(--sage)}
+
+/* ── LOG ROWS ── */
+.log-row{display:flex;align-items:flex-start;gap:11px;padding:11px 18px;border-bottom:1px solid var(--border);font-size:12px}
+.log-row:last-child{border-bottom:none}
+.log-t{color:var(--ink4);font-family:var(--mono);font-size:10.5px;width:50px;flex-shrink:0;padding-top:1px}
+.log-e{flex:1;color:var(--ink2);line-height:1.55}
+.log-tag{padding:2px 8px;border-radius:20px;font-size:10px;font-weight:700;flex-shrink:0}
+
+/* ── PIPELINE STEPS ── */
+.pipeline{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.pipe-step{padding:16px 8px;background:var(--cream);border:1.5px solid var(--border);border-radius:var(--r);text-align:center;cursor:pointer;transition:all .2s}
+.pipe-step:hover{border-color:var(--sage);background:var(--sage-l);transform:translateY(-3px);box-shadow:0 8px 20px var(--sh2)}
+.pipe-step.cur{border-color:var(--sage);background:var(--sage-l);box-shadow:0 4px 16px rgba(74,124,89,.2)}
+.pipe-num{width:22px;height:22px;border-radius:50%;background:var(--warm);border:1.5px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:10.5px;font-weight:700;margin:0 auto 9px;color:var(--ink3);font-family:var(--mono)}
+.pipe-step.cur .pipe-num{background:var(--sage);border-color:var(--sage);color:#fff}
+.pipe-icon{font-size:24px;margin-bottom:7px}
+.pipe-nm{font-size:11.5px;font-weight:700;color:var(--ink)}
+.pipe-ds{font-size:10.5px;color:var(--ink4);margin-top:2px}
+
+/* ── RAG PIPELINE VIZ ── */
+.rag-flow{display:flex;align-items:center;gap:0;overflow:hidden;border-radius:var(--r);border:1px solid var(--border)}
+.rag-step{flex:1;padding:14px 10px;text-align:center;background:var(--cream);border-right:1px solid var(--border);position:relative}
+.rag-step:last-child{border-right:none}
+.rag-step-icon{font-size:20px;margin-bottom:5px}
+.rag-step-name{font-size:11px;font-weight:700;color:var(--ink)}
+.rag-step-desc{font-size:10px;color:var(--ink4);margin-top:2px}
+.rag-step.hl{background:var(--sage-l)}
+.rag-arrow{position:absolute;right:-10px;top:50%;transform:translateY(-50%);font-size:16px;color:var(--border2);z-index:1}
+
+/* ── INFO BOX ── */
+.info-box{padding:13px 17px;border-radius:var(--rs);font-size:12px;line-height:1.6;display:flex;align-items:flex-start;gap:9px}
+.ib-sage{background:var(--sage-l);border:1px solid var(--sage-m);color:var(--ink2)}
+.ib-amber{background:var(--amber-l);border:1px solid var(--amber-m);color:var(--ink2)}
+.ib-sky{background:var(--sky-l);border:1px solid var(--sky-m);color:var(--ink2)}
+.ib-plum{background:var(--plum-l);border:1px solid var(--plum-m);color:var(--ink2)}
+
+/* ── RULE ITEMS ── */
+.rule{padding:10px 14px;background:var(--cream);border:1px solid var(--border);border-radius:var(--rs);font-size:12.5px;color:var(--ink2);display:flex;align-items:center;gap:9px}
+.rchk{color:var(--sage);font-size:14px;flex-shrink:0}
+
+/* ── ANALYTICS ── */
+.metric-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}
+.metric{background:var(--cream);border:1px solid var(--border);border-radius:var(--rs);padding:16px;text-align:center}
+.metric-val{font-family:var(--serif);font-size:26px;font-weight:700;letter-spacing:-.5px}
+.metric-lbl{font-size:11px;color:var(--ink4);margin-top:3px}
+
+/* ── QA TABLE ── */
+.qa-row{display:flex;align-items:center;gap:12px;padding:11px 18px;border-bottom:1px solid var(--border);font-size:12.5px}
+.qa-row:last-child{border-bottom:none}
+.qa-seg{flex:1;color:var(--ink2)}
+.qa-status{padding:3px 9px;border-radius:20px;font-size:10.5px;font-weight:700;font-family:var(--mono)}
+.qa-ok{background:var(--sage-l);color:var(--sage)}
+.qa-fail{background:var(--rose-l);color:var(--rose)}
+.qa-warn{background:var(--amber-l);color:var(--amber)}
+
+/* ── INPUTS ── */
+input[type=text],textarea,select{width:100%;background:var(--cream);border:1.5px solid var(--border);color:var(--ink);font-family:var(--sans);font-size:12.5px;padding:9px 13px;border-radius:var(--rs);outline:none;transition:border-color .17s;appearance:none}
+input[type=text]:focus,textarea:focus,select:focus{border-color:var(--sage)}
+textarea{resize:vertical;min-height:88px;line-height:1.6}
+select{cursor:pointer}
+.flbl{font-size:11px;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:5px;display:block}
+
+/* ── TM SUMMARY ── */
+.tm-sum{background:linear-gradient(135deg,var(--sage-l),var(--cream));border:1.5px solid var(--sage-m);border-radius:var(--r);padding:14px 18px;display:flex;align-items:center;gap:12px}
+.tm-sum-icon{font-size:20px}
+.tm-sum-txt{flex:1;font-size:12.5px;color:var(--ink2);line-height:1.6}
+.tm-sum-txt strong{color:var(--sage)}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.a1{animation:fadeUp .33s ease forwards}
+.a2{animation:fadeUp .33s .07s ease both}
+.a3{animation:fadeUp .33s .14s ease both}
+.a4{animation:fadeUp .33s .21s ease both}
+
+.view{display:none}.view.active{display:block}
+hr.div{border:none;border-top:1px solid var(--border);margin:4px 0}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--border2);border-radius:10px}
+</style>
+</head>
+<body>
+
+<!-- ═══ SIDEBAR ═══ -->
+<aside class="sidebar">
+  <div class="s-logo">
+    <div class="logo-row">
+      <div class="logo-orb">🌿</div>
+      <div class="logo-name">LinguaAI</div>
+    </div>
+    <div class="logo-tag">Intelligent Translation Studio</div>
+  </div>
+  <nav class="nav-wrap">
+    <div class="nav-lbl">Workspace</div>
+    <a class="nav-item active" onclick="go(&#39;dashboard&#39;)"><span class="nav-icon">🏠</span>Dashboard</a>
+    <a class="nav-item" onclick="go(&#39;upload&#39;)"><span class="nav-icon">📂</span>Upload &amp; Parse<span class="nav-pill p-amber">2</span></a>
+    <a class="nav-item" onclick="go(&#39;quality&#39;)"><span class="nav-icon">🔍</span>Quality Check<span class="nav-pill p-red">5</span></a>
+    <a class="nav-item" onclick="go(&#39;editor&#39;)"><span class="nav-icon">✏️</span>Translate &amp; Review</a>
+    <a class="nav-item" onclick="go(&#39;qa&#39;)"><span class="nav-icon">✅</span>Post-Translation QA</a>
+    <a class="nav-item" onclick="go(&#39;backtranslate&#39;)"><span class="nav-icon">🔁</span>Back-Translation</a>
+    <div class="nav-lbl">Configure</div>
+    <a class="nav-item" onclick="go(&#39;glossary&#39;)"><span class="nav-icon">📖</span>Glossary<span class="nav-pill p-green">24</span></a>
+    <a class="nav-item" onclick="go(&#39;profiles&#39;)"><span class="nav-icon">🎨</span>Style Profiles</a>
+    <a class="nav-item" onclick="go(&#39;learning&#39;)"><span class="nav-icon">🔄</span>Train &amp; Learn</a>
+    <a class="nav-item" onclick="go(&#39;analytics&#39;)"><span class="nav-icon">📊</span>Analytics<span class="nav-pill p-plum">New</span></a>
+  </nav>
+  <div class="s-foot">
+    <div class="u-card">
+      <div class="u-av">CC</div>
+      <div><div class="u-name">Coder's Clique</div><div class="u-role">Vaishnavi Karande</div></div>
+    </div>
+  </div>
+</aside>
+
+<!-- ═══ MAIN ═══ -->
+<main class="main">
+  <div class="topbar">
+    <div class="bc"><span>LinguaAI</span><span class="bc-sep">›</span><span class="bc-cur" id="bc">Dashboard</span></div>
+    <div class="tb-r">
+      <select style="width:auto;padding:6px 13px;font-size:12px;">
+        <option>🇪🇸 Spanish</option>
+        <option>🇯🇵 Japanese</option>
+        <option>🇫🇷 French</option>
+        <option>🇩🇪 German</option>
+        <option>🇧🇷 Portuguese</option>
+        <option>🇮🇹 Italian</option>
+        <option>🇰🇷 Korean</option>
+      </select>
+      <button class="btn btn-outline btn-sm">🔄 Sync TM</button>
+      <button class="btn btn-primary btn-sm" onclick="go(&#39;upload&#39;)">+ New Document</button>
+    </div>
+  </div>
+
+  <!-- ══ DASHBOARD ══ -->
+  <div class="view active content" id="view-dashboard">
+    <div class="pg-hd a1">
+      <div><div class="pg-title">Good morning ☀️</div><div class="pg-sub">Here's your translation workspace at a glance.</div></div>
+      <button class="btn btn-primary" onclick="go(&#39;upload&#39;)">+ Upload Document</button>
+    </div>
+    <div class="stats a2">
+      <div class="stat s-sage"><div class="sv v-sage">1,284</div><div class="sl">Segments Translated</div></div>
+      <div class="stat s-sky"><div class="sv v-sky">73%</div><div class="sl">TM Match Rate</div></div>
+      <div class="stat s-amber"><div class="sv v-amber">5</div><div class="sl">Quality Issues</div></div>
+      <div class="stat s-rose"><div class="sv v-rose">3</div><div class="sl">Pending Approvals</div></div>
+    </div>
+    <div class="g-left a3">
+      <div class="col">
+        <div class="card">
+          <div class="card-hd"><div class="card-title">📄 Recent Documents</div><button class="btn btn-outline btn-sm" onclick="go(&#39;upload&#39;)">Upload New</button></div>
+          <div class="card-body" style="padding:14px;">
+            <div class="file-row"><div class="f-thumb t-pdf">📕</div><div><div class="f-name">Member_Enrollment_Guide_2026.pdf</div><div class="f-meta">248 segments · EN → ES · 2.4 MB</div></div><div class="s-badge sb-done"><div class="bdot d-sage"></div>Complete</div></div>
+            <div class="file-row"><div class="f-thumb t-docx">📘</div><div><div class="f-name">Health_Plan_Contract_v3.docx</div><div class="f-meta">412 segments · EN → FR · 1.1 MB</div></div><div class="s-badge sb-proc"><div class="bdot d-sky"></div>Translating…</div></div>
+            <div class="file-row" style="margin-bottom:0"><div class="f-thumb t-pdf">📕</div><div><div class="f-name">Regulatory_Compliance_Notice.pdf</div><div class="f-meta">86 segments · EN → DE · 0.6 MB</div></div><div class="s-badge sb-rev"><div class="bdot d-amber"></div>Needs Review</div></div>
+          </div>
+        </div>
+
+        <!-- RAG PIPELINE VIZ -->
+        <div class="card">
+          <div class="card-hd"><div class="card-title">⚡ RAG Translation Pipeline</div><span style="font-size:11px;color:var(--ink4);">Click any stage to navigate</span></div>
+          <div class="card-body" style="padding:14px;">
+            <div class="rag-flow" style="margin-bottom:12px;">
+              <div class="rag-step" onclick="go(&#39;upload&#39;)"><div class="rag-step-icon">📤</div><div class="rag-step-name">1. Segment</div><div class="rag-step-desc">Split document</div></div>
+              <div class="rag-step"><div class="rag-step-icon">🔢</div><div class="rag-step-name">2. Embed</div><div class="rag-step-desc">Vector generation</div></div>
+              <div class="rag-step"><div class="rag-step-icon">🔍</div><div class="rag-step-name">3. Search TM</div><div class="rag-step-desc">Vector similarity</div></div>
+              <div class="rag-step"><div class="rag-step-icon">🗂️</div><div class="rag-step-name">4. Classify</div><div class="rag-step-desc">Exact/Fuzzy/New</div></div>
+              <div class="rag-step hl" onclick="go(&#39;editor&#39;)"><div class="rag-step-icon">🤖</div><div class="rag-step-name">5. LLM</div><div class="rag-step-desc">New segments only</div></div>
+            </div>
+            <div class="info-box ib-sage" style="font-size:11.5px;">
+              <span>💡</span><span><strong>73% of segments</strong> matched from Translation Memory — only 27% sent to the LLM, saving cost and ensuring consistency.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- PIPELINE STEPS -->
+        <div class="card">
+          <div class="card-hd"><div class="card-title">🗺️ Full Workflow</div></div>
+          <div class="card-body" style="padding:14px;">
+            <div class="pipeline">
+              <div class="pipe-step" onclick="go(&#39;upload&#39;)"><div class="pipe-num">1</div><div class="pipe-icon">📤</div><div class="pipe-nm">Upload</div><div class="pipe-ds">PDF · DOCX</div></div>
+              <div class="pipe-step" onclick="go(&#39;quality&#39;)"><div class="pipe-num">2</div><div class="pipe-icon">🔍</div><div class="pipe-nm">Validate</div><div class="pipe-ds">Source quality</div></div>
+              <div class="pipe-step cur" onclick="go(&#39;editor&#39;)"><div class="pipe-num">3</div><div class="pipe-icon">🌍</div><div class="pipe-nm">Translate</div><div class="pipe-ds">TM + LLM</div></div>
+              <div class="pipe-step" onclick="go(&#39;editor&#39;)"><div class="pipe-num">4</div><div class="pipe-icon">✅</div><div class="pipe-nm">Approve</div><div class="pipe-ds">Side-by-side</div></div>
+              <div class="pipe-step" onclick="go(&#39;learning&#39;)"><div class="pipe-num">5</div><div class="pipe-icon">🔄</div><div class="pipe-nm">Learn</div><div class="pipe-ds">TM grows</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card">
+          <div class="card-hd"><div class="card-title">🧠 Translation Memory</div></div>
+          <div class="card-body" style="display:flex;flex-direction:column;gap:16px;">
+            <div class="tm-sum"><div class="tm-sum-icon">💡</div><div class="tm-sum-txt"><strong>73% match rate</strong> — saving time and enforcing consistency across all your documents.</div></div>
+            <div style="display:flex;flex-direction:column;gap:11px;">
+              <div><div style="display:flex;justify-content:space-between;margin-bottom:5px;"><span style="font-size:12px;font-weight:600;color:var(--ink3)">Exact (100%)</span><span style="font-size:12px;font-weight:700;color:var(--sage)">61%</span></div><div class="pb-wrap"><div class="pb-fill" style="width:61%;background:var(--sage)"></div></div></div>
+              <div><div style="display:flex;justify-content:space-between;margin-bottom:5px;"><span style="font-size:12px;font-weight:600;color:var(--ink3)">Fuzzy (75–99%)</span><span style="font-size:12px;font-weight:700;color:var(--amber)">12%</span></div><div class="pb-wrap"><div class="pb-fill" style="width:12%;background:var(--amber)"></div></div></div>
+              <div><div style="display:flex;justify-content:space-between;margin-bottom:5px;"><span style="font-size:12px;font-weight:600;color:var(--ink3)">LLM — New Segments</span><span style="font-size:12px;font-weight:700;color:var(--sky)">27%</span></div><div class="pb-wrap"><div class="pb-fill" style="width:27%;background:var(--sky)"></div></div></div>
+            </div>
+            <hr class="div">
+            <div style="font-size:11.5px;color:var(--ink4);">💾 3,842 approved pairs · 7 language pairs · TM versioning active</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-hd"><div class="card-title">📊 This Week</div><button class="btn btn-outline btn-sm" onclick="go(&#39;analytics&#39;)">Full Analytics →</button></div>
+          <div class="card-body" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+            <div style="text-align:center;padding:13px;background:var(--sage-l);border-radius:var(--rs);"><div style="font-family:var(--serif);font-size:24px;font-weight:700;color:var(--sage)">42</div><div style="font-size:10.5px;color:var(--ink4);margin-top:3px;">Docs Processed</div></div>
+            <div style="text-align:center;padding:13px;background:var(--amber-l);border-radius:var(--rs);"><div style="font-family:var(--serif);font-size:24px;font-weight:700;color:var(--amber)">6h</div><div style="font-size:10.5px;color:var(--ink4);margin-top:3px;">Time Saved</div></div>
+            <div style="text-align:center;padding:13px;background:var(--sky-l);border-radius:var(--rs);"><div style="font-family:var(--serif);font-size:24px;font-weight:700;color:var(--sky)">98%</div><div style="font-size:10.5px;color:var(--ink4);margin-top:3px;">Glossary Accuracy</div></div>
+            <div style="text-align:center;padding:13px;background:var(--plum-l);border-radius:var(--rs);"><div style="font-family:var(--serif);font-size:24px;font-weight:700;color:var(--plum)">+18%</div><div style="font-size:10.5px;color:var(--ink4);margin-top:3px;">TM Growth</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ UPLOAD ══ -->
+  <div class="view content" id="view-upload">
+    <div class="pg-hd a1"><div><div class="pg-title">Upload &amp; Parse Documents</div><div class="pg-sub">PDF and DOCX supported — headings, tables and lists are fully preserved</div></div></div>
+    <div class="g-left">
+      <div class="col a2">
+        <div class="card">
+          <div class="card-hd"><div class="card-title">📥 Add Files</div></div>
+          <div class="card-body">
+            <div class="dropzone" onclick="fakeUpload()">
+              <div class="dz-icon">☁️</div>
+              <div class="dz-title">Drop files here, or click to browse</div>
+              <div class="dz-sub">Document structure — headings, tables, lists — is preserved through the entire translation pipeline.</div>
+              <div class="fmt-chips"><span class="fmt-chip">.pdf</span><span class="fmt-chip">.docx</span><span class="fmt-chip">.doc</span><span class="fmt-chip">.txt</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-hd"><div class="card-title">📋 Uploaded Files</div></div>
+          <div class="card-body" style="padding:13px;">
+            <div class="file-row"><div class="f-thumb t-pdf">📕</div><div><div class="f-name">Member_Enrollment_Guide_2026.pdf</div><div class="f-meta">248 segments extracted · 2.4 MB</div></div><div class="s-badge sb-done"><div class="bdot d-sage"></div>Parsed</div></div>
+            <div class="file-row" id="fu-item" style="display:none;margin-bottom:0"><div class="f-thumb t-docx">📘</div><div><div class="f-name">New_Document.docx</div><div class="f-meta" id="fu-meta">Parsing segments…</div></div><div class="s-badge sb-proc" id="fu-status"><div class="bdot d-sky"></div>Processing</div></div>
+          </div>
+        </div>
+        <!-- SOURCE DOCUMENT IMPROVEMENT — Bonus Feature -->
+        <div class="card">
+          <div class="card-hd">
+            <div class="card-title">✨ Source Document Improvement <span style="font-size:10px;background:var(--plum-l);color:var(--plum);padding:2px 8px;border-radius:20px;font-family:var(--mono);margin-left:6px;">BONUS</span></div>
+          </div>
+          <div class="card-body" style="display:flex;flex-direction:column;gap:12px;">
+            <div class="info-box ib-plum"><span>✨</span><span>AI-powered grammar correction, paraphrasing and clarity enhancement — applied to the source document <strong>before translation</strong> begins.</span></div>
+            <div style="display:flex;gap:8px;">
+              <button class="btn btn-plum btn-sm">✨ Auto-improve Source</button>
+              <button class="btn btn-outline btn-sm">Preview Changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col a3">
+        <div class="card">
+          <div class="card-hd"><div class="card-title">⚙️ Translation Settings</div></div>
+          <div class="card-body" style="display:flex;flex-direction:column;gap:15px;">
+            <div>
+              <label class="flbl">Target Language</label>
+              <div class="l-chips">
+                <div class="l-chip on">🇪🇸 Spanish</div>
+                <div class="l-chip">🇯🇵 Japanese</div>
+                <div class="l-chip">🇫🇷 French</div>
+                <div class="l-chip">🇩🇪 German</div>
+                <div class="l-chip">🇧🇷 Portuguese</div>
+              </div>
+            </div>
+            <div>
+              <label class="flbl">Style Profile</label>
+              <select><option>📋 Formal — Professional register</option><option>🏛️ Official — Regulatory/Legal</option><option>💬 Conversational — Natural tone</option><option>⚙️ Technical — Precise vocabulary</option><option>📱 Social — Engaging, casual</option><option>😊 Friendly — Warm, approachable</option><option>🤝 Diplomatic — Tactful, measured</option></select>
+            </div>
+            <div>
+              <label class="flbl">Glossary</label>
+              <select><option>📖 Healthcare EN → ES (24 terms)</option><option>📖 Legal EN → FR (18 terms)</option><option>📖 General EN → DE (31 terms)</option></select>
+            </div>
+            <div>
+              <label class="flbl">LLM Engine</label>
+              <select><option>🤖 Claude (Anthropic) — Recommended</option><option>🤖 Gemini 1.5 Flash (Google)</option><option>🤖 GPT-4o (OpenAI)</option><option>🖥️ Ollama / Mistral (Local — Free)</option></select>
+            </div>
+            <button class="btn btn-primary" style="width:100%;justify-content:center;" onclick="go(&#39;quality&#39;)">Run Quality Check →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ QUALITY ══ -->
+  <div class="view content" id="view-quality">
+    <div class="pg-hd a1"><div><div class="pg-title">Source Quality Check</div><div class="pg-sub">Member_Enrollment_Guide_2026.pdf · 248 segments analysed</div></div><button class="btn btn-primary" onclick="go(&#39;editor&#39;)">Proceed to Translate →</button></div>
+    <div class="stats a2">
+      <div class="stat s-rose"><div class="sv v-rose">2</div><div class="sl">High Severity</div></div>
+      <div class="stat s-amber"><div class="sv v-amber">2</div><div class="sl">Medium Severity</div></div>
+      <div class="stat s-sky"><div class="sv v-sky">1</div><div class="sl">Low / Info</div></div>
+      <div class="stat s-sage"><div class="sv v-sage">243</div><div class="sl">Clean Segments</div></div>
+    </div>
+    <div class="g-left a3">
+      <div class="card">
+        <div class="card-hd"><div class="card-title">⚠️ Detected Issues</div><button class="btn btn-primary btn-sm">✨ Fix All with AI</button></div>
+        <div>
+          <div class="issue"><span class="sev sev-h">HIGH</span><div><div class="i-title">Terminology inconsistency — "health plan" vs "healthcare plan"</div><div class="i-desc">Found in segments 12, 47 and 103. Same concept written differently — e.g. like "PM" vs "P.M." vs "p.m." — causes inconsistent translations and compliance risk.</div><button class="fix-btn">✨ Standardise to "health plan"</button></div></div>
+          <div class="issue"><span class="sev sev-h">HIGH</span><div><div class="i-title">Missing glossary term — "out-of-pocket maximum"</div><div class="i-desc">Used in segment 89 but not in the active glossary. Translation will be inconsistent with company standard. Conflict detected with existing entry.</div><button class="fix-btn">✨ Add to Glossary</button></div></div>
+          <div class="issue"><span class="sev sev-m">MED</span><div><div class="i-title">Punctuation — double space detected (missing space rule)</div><div class="i-desc">Segment 34: "Members must submit&nbsp;&nbsp;their claim forms…" — extra space before "their". Will propagate to all target languages.</div><button class="fix-btn">✨ Auto-fix spacing</button></div></div>
+          <div class="issue"><span class="sev sev-m">MED</span><div><div class="i-title">Date format inconsistency — MM/DD/YYYY vs DD-MM-YYYY</div><div class="i-desc">Segments 67 and 201 use different date formats. Formatting check failed — this causes confusion in localised versions.</div><button class="fix-btn">✨ Normalise to MM/DD/YYYY</button></div></div>
+          <div class="issue"><span class="sev sev-l">INFO</span><div><div class="i-title">Capitalisation — "deductible" vs "Deductible"</div><div class="i-desc">Mixed capitalisation across 6 segments. Capitalisation pattern check flagged — may affect glossary term matching accuracy.</div></div></div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card">
+          <div class="card-hd"><div class="card-title">📊 Quality Score</div></div>
+          <div class="card-body">
+            <div style="text-align:center;padding:16px 0 20px;"><div style="font-family:var(--serif);font-size:60px;font-weight:700;color:var(--amber);letter-spacing:-3px;line-height:1;">78</div><div style="font-size:12.5px;color:var(--ink4);margin-top:5px;">out of 100 · Good</div></div>
+            <div style="display:flex;flex-direction:column;gap:11px;">
+              <div><div style="display:flex;justify-content:space-between;margin-bottom:5px;"><span style="font-size:12px;color:var(--ink3);font-weight:600;">Spell Check</span><span style="font-size:11.5px;color:var(--sage);font-weight:700;">98%</span></div><div class="pb-wrap"><div class="pb-fill" style="width:98%;background:var(--sage)"></div></div></div>
+              <div><div style="display:flex;justify-content:space-between;margin-bottom:5px;"><span style="font-size:12px;color:var(--ink3);font-weight:600;">Consistency Analysis</span><span style="font-size:11.5px;color:var(--amber);font-weight:700;">71%</span></div><div class="pb-wrap"><div class="pb-fill" style="width:71%;background:var(--amber)"></div></div></div>
+              <div><div style="display:flex;justify-content:space-between;margin-bottom:5px;"><span style="font-size:12px;color:var(--ink3);font-weight:600;">Punctuation &amp; Grammar</span><span style="font-size:11.5px;color:var(--amber);font-weight:700;">82%</span></div><div class="pb-wrap"><div class="pb-fill" style="width:82%;background:var(--amber)"></div></div></div>
+              <div><div style="display:flex;justify-content:space-between;margin-bottom:5px;"><span style="font-size:12px;color:var(--ink3);font-weight:600;">Formatting Checks</span><span style="font-size:11.5px;color:var(--sage);font-weight:700;">95%</span></div><div class="pb-wrap"><div class="pb-fill" style="width:95%;background:var(--sage)"></div></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ EDITOR ══ -->
+  <div class="view content" id="view-editor">
+    <div class="pg-hd a1"><div><div class="pg-title">Translate &amp; Review</div><div class="pg-sub">Member_Enrollment_Guide_2026.pdf · English → Spanish · Formal Profile · Audit trail active</div></div><div style="display:flex;gap:9px;"><button class="btn btn-outline">⬇ Export DOCX</button><button class="btn btn-outline">⬇ Export JSON</button><button class="btn btn-primary">Submit for Approval ✓</button></div></div>
+    <div class="stats a2">
+      <div class="stat s-sage"><div class="sv v-sage">184</div><div class="sl">Approved</div></div>
+      <div class="stat s-sky"><div class="sv v-sky">41</div><div class="sl">Pending Review</div></div>
+      <div class="stat s-amber"><div class="sv v-amber">23</div><div class="sl">Fuzzy Matches</div></div>
+      <div class="stat s-neutral"><div class="sv v-ink">248</div><div class="sl">Total Segments</div></div>
+    </div>
+    <div class="editor a3">
+      <div class="e-col">
+        <div class="e-col-hd"><div class="lang-lbl">🇺🇸 English <span style="font-weight:400;color:var(--ink4);font-size:11.5px;">· Source</span></div><span style="font-size:10.5px;color:var(--ink4);">ORIGINAL</span></div>
+        <div class="seg"><div class="seg-meta">SEG 001 <span class="tm-tag tm-e">✓ TM Exact 100%</span></div><div class="seg-txt">Welcome to your <em class="hl-g">health plan</em> enrollment guide. This document explains your benefits for the upcoming year.</div></div>
+        <div class="seg active"><div class="seg-meta">SEG 002 · Active <span class="tm-tag tm-f">~ TM Fuzzy 87%</span></div><div class="seg-txt">The <em class="hl-g">member enrollment</em> process must be completed before the end of the <em class="hl-g">benefit period</em> to ensure continuous coverage under your <em class="hl-g">health plan</em>.</div></div>
+        <div class="seg"><div class="seg-meta">SEG 003 <span class="tm-tag tm-a">✨ LLM — New</span></div><div class="seg-txt">If you have questions about your <em class="hl-g">deductible</em> or <em class="hl-g">copayment</em>, please contact your <em class="hl-g">network provider</em> directly.</div></div>
+        <div class="seg"><div class="seg-meta">SEG 004 <span class="tm-tag tm-e">✓ TM Exact 100%</span></div><div class="seg-txt">Your <em class="hl-w">out-of-pocket maximum</em> resets at the beginning of each plan year. All covered expenses count toward this limit.</div></div>
+      </div>
+      <div class="e-col">
+        <div class="e-col-hd"><div class="lang-lbl">🇪🇸 Spanish <span style="font-weight:400;color:var(--ink4);font-size:11.5px;">· Target · Formal</span></div><span style="font-size:11px;color:var(--sage);font-weight:600;">Glossary Enforced ✓</span></div>
+        <div class="seg"><div class="seg-meta">SEG 001 <span class="tm-tag tm-ok">✓ Approved</span></div><div class="seg-txt">Bienvenido a su guía de inscripción al <em class="hl-g">plan de salud</em>. Este documento explica sus beneficios para el próximo año.</div><div class="seg-acts"><button class="sa sa-ok">✓ Approved</button></div></div>
+        <div class="seg active"><div class="seg-meta">SEG 002 · Editing</div><div class="seg-txt" contenteditable="true" style="outline:none;border:1.5px solid var(--sage);border-radius:7px;padding:9px;background:rgba(74,124,89,.04);">El proceso de <em class="hl-g">inscripción de miembros</em> debe completarse antes del final del <em class="hl-g">período de beneficios</em> para garantizar la cobertura continua bajo su <em class="hl-g">plan de salud</em>.</div><div class="seg-acts"><button class="sa sa-ok">✓ Accept</button><button class="sa sa-ed">✎ Edit</button><button class="sa sa-no">✗ Reject</button></div></div>
+        <div class="seg"><div class="seg-meta">SEG 003 <span class="tm-tag tm-a">LLM Generated</span></div><div class="seg-txt">Si tiene preguntas sobre su <em class="hl-g">deducible</em> o <em class="hl-g">copago</em>, comuníquese directamente con su <em class="hl-g">proveedor en red</em>.</div><div class="seg-acts"><button class="sa sa-ok">✓ Accept</button><button class="sa sa-ed">✎ Edit</button><button class="sa sa-no">✗ Reject</button></div></div>
+        <div class="seg"><div class="seg-meta">SEG 004 <span class="tm-tag tm-ok">✓ Approved</span></div><div class="seg-txt">Su <em class="hl-w">límite de gastos de bolsillo</em> se reinicia al comienzo de cada año del plan. Todos los gastos cubiertos cuentan hacia este límite.</div><div class="seg-acts"><button class="sa sa-ok">✓ Approved</button></div></div>
+      </div>
+    </div>
+    <div class="info-box ib-sage a4" style="margin-top:14px;"><span>✅</span><div><strong>Glossary enforcement active</strong> — 6 terms constrained via prompt engineering. Grammatical context adaptation applied. &nbsp;<span style="font-size:10.5px;color:var(--ink4);font-family:var(--mono);">health plan → plan de salud &nbsp;·&nbsp; deductible → deducible &nbsp;·&nbsp; copayment → copago</span></div></div>
+  </div>
+
+  <!-- ══ POST-TRANSLATION QA ══ -->
+  <div class="view content" id="view-qa">
+    <div class="pg-hd a1"><div><div class="pg-title">Post-Translation QA</div><div class="pg-sub">Tag consistency · Number accuracy · Length validation · Cross-document consistency</div></div><button class="btn btn-primary">Run Full QA Check</button></div>
+    <div class="stats a2">
+      <div class="stat s-sage"><div class="sv v-sage">231</div><div class="sl">Segments Passed</div></div>
+      <div class="stat s-amber"><div class="sv v-amber">11</div><div class="sl">Warnings</div></div>
+      <div class="stat s-rose"><div class="sv v-rose">6</div><div class="sl">Failed Checks</div></div>
+      <div class="stat s-sky"><div class="sv v-sky">96%</div><div class="sl">QA Pass Rate</div></div>
+    </div>
+    <div class="g2 a3">
+      <div class="card">
+        <div class="card-hd"><div class="card-title">🔬 QA Results — Segment Level</div></div>
+        <div>
+          <div style="display:flex;gap:10px;padding:11px 18px;border-bottom:1px solid var(--border);font-size:10.5px;font-weight:700;color:var(--ink4);font-family:var(--mono);"><span style="flex:1">SEGMENT</span><span style="width:90px">CHECK</span><span style="width:80px">STATUS</span></div>
+          <div class="qa-row"><span class="qa-seg">SEG 001 — health plan enrollment guide…</span><span style="font-size:11px;color:var(--ink4);width:90px;">Tag consistency</span><span class="qa-status qa-ok">PASS</span></div>
+          <div class="qa-row"><span class="qa-seg">SEG 003 — deductible or copayment…</span><span style="font-size:11px;color:var(--ink4);width:90px;">Number accuracy</span><span class="qa-status qa-ok">PASS</span></div>
+          <div class="qa-row"><span class="qa-seg">SEG 018 — coverage limit $5,000…</span><span style="font-size:11px;color:var(--ink4);width:90px;">Number accuracy</span><span class="qa-status qa-fail">FAIL</span></div>
+          <div class="qa-row"><span class="qa-seg">SEG 047 — benefit period ends…</span><span style="font-size:11px;color:var(--ink4);width:90px;">Length validation</span><span class="qa-status qa-warn">WARN</span></div>
+          <div class="qa-row"><span class="qa-seg">SEG 089 — out-of-pocket maximum…</span><span style="font-size:11px;color:var(--ink4);width:90px;">Cross-doc consist.</span><span class="qa-status qa-fail">FAIL</span></div>
+          <div class="qa-row"><span class="qa-seg">SEG 103 — health plan coverage…</span><span style="font-size:11px;color:var(--ink4);width:90px;">Tag consistency</span><span class="qa-status qa-ok">PASS</span></div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card">
+          <div class="card-hd"><div class="card-title">📋 QA Check Types</div></div>
+          <div class="card-body" style="display:flex;flex-direction:column;gap:8px;">
+            <div class="rule"><span class="rchk">✓</span> Tag consistency — all XML/HTML tags preserved</div>
+            <div class="rule"><span class="rchk">✓</span> Number accuracy — figures match source exactly</div>
+            <div class="rule"><span class="rchk">✓</span> Length validation — translation not too long/short</div>
+            <div class="rule"><span class="rchk">✓</span> Cross-document consistency — same terms used across all files</div>
+            <div class="rule"><span class="rchk">✓</span> Glossary compliance — enforced terms present</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-hd"><div class="card-title">⬇ Export QA Report</div></div>
+          <div class="card-body" style="display:flex;flex-direction:column;gap:8px;">
+            <button class="btn btn-outline" style="width:100%;justify-content:center;">⬇ Export QA Report as PDF</button>
+            <button class="btn btn-outline" style="width:100%;justify-content:center;">⬇ Export Failed Segments as CSV</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ BACK-TRANSLATION ══ -->
+  <div class="view content" id="view-backtranslate">
+    <div class="pg-hd a1"><div><div class="pg-title">Back-Translation Verification</div><div class="pg-sub">Translate the output back to the source language for a quick quality check</div></div><button class="btn btn-primary">Run Back-Translation</button></div>
+    <div class="info-box ib-sky a2" style="margin-bottom:20px;"><span>💡</span><span>Back-translation re-translates the target text back to English so you can compare it side-by-side with the original source. Significant differences flag potential errors in the translation.</span></div>
+    <div class="card a3">
+      <div class="card-hd"><div class="card-title">🔁 Three-Way Comparison</div><span style="font-size:11px;color:var(--ink4);">Source · Target · Back-Translated</span></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;border-top:1px solid var(--border);">
+        <div style="padding:14px 16px;border-right:1px solid var(--border);background:var(--cream2);"><div style="font-size:10.5px;font-weight:700;color:var(--ink4);font-family:var(--mono);margin-bottom:8px;">🇺🇸 ORIGINAL SOURCE</div><div style="font-size:12.5px;color:var(--ink);line-height:1.7;">The <strong>member enrollment</strong> process must be completed before the end of the <strong>benefit period</strong> to ensure continuous coverage.</div></div>
+        <div style="padding:14px 16px;border-right:1px solid var(--border);"><div style="font-size:10.5px;font-weight:700;color:var(--ink4);font-family:var(--mono);margin-bottom:8px;">🇪🇸 TRANSLATION</div><div style="font-size:12.5px;color:var(--ink);line-height:1.7;">El proceso de <strong>inscripción de miembros</strong> debe completarse antes del final del <strong>período de beneficios</strong> para garantizar la cobertura continua.</div></div>
+        <div style="padding:14px 16px;background:var(--sage-l);"><div style="font-size:10.5px;font-weight:700;color:var(--sage);font-family:var(--mono);margin-bottom:8px;">🔁 BACK-TRANSLATED ✓ Match</div><div style="font-size:12.5px;color:var(--ink);line-height:1.7;">The <strong>member enrollment</strong> process must be completed before the end of the <strong>benefit period</strong> to ensure continuous coverage.</div></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;border-top:1px solid var(--border);">
+        <div style="padding:14px 16px;border-right:1px solid var(--border);background:var(--cream2);"><div style="font-size:10.5px;font-weight:700;color:var(--ink4);font-family:var(--mono);margin-bottom:8px;">🇺🇸 ORIGINAL SOURCE</div><div style="font-size:12.5px;color:var(--ink);line-height:1.7;">Your <strong>out-of-pocket maximum</strong> resets at the beginning of each plan year.</div></div>
+        <div style="padding:14px 16px;border-right:1px solid var(--border);"><div style="font-size:10.5px;font-weight:700;color:var(--ink4);font-family:var(--mono);margin-bottom:8px;">🇪🇸 TRANSLATION</div><div style="font-size:12.5px;color:var(--ink);line-height:1.7;">Su límite de gastos de bolsillo se reinicia al comienzo de cada año del plan.</div></div>
+        <div style="padding:14px 16px;background:var(--rose-l);"><div style="font-size:10.5px;font-weight:700;color:var(--rose);font-family:var(--mono);margin-bottom:8px;">🔁 BACK-TRANSLATED ⚠ Review</div><div style="font-size:12.5px;color:var(--ink);line-height:1.7;">Your <strong>spending limit</strong> resets at the start of each plan year. <span style="color:var(--rose);font-size:11px;">"out-of-pocket maximum" not preserved — add to glossary.</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ GLOSSARY ══ -->
+  <div class="view content" id="view-glossary">
+    <div class="pg-hd a1"><div><div class="pg-title">Glossary Manager</div><div class="pg-sub">Per language-pair glossaries with source term, target term and context notes · TBX standard</div></div><div style="display:flex;gap:9px;"><button class="btn btn-outline">⬆ Import TBX/TMX/XLIFF</button><button class="btn btn-primary">+ Add Term</button></div></div>
+    <div class="g-left a2">
+      <div class="card">
+        <div class="card-hd"><div class="card-title">📖 EN → ES Term Pairs</div><input type="text" placeholder="Search terms…" style="width:170px;font-size:11.5px;"></div>
+        <div>
+          <div class="g-row" style="background:var(--cream2);font-size:10.5px;font-weight:700;color:var(--ink4);"><span style="flex:1">SOURCE</span><span style="width:22px"></span><span style="flex:1">TARGET (ENFORCED)</span><span>PAIR</span></div>
+          <div class="g-row"><span class="g-src">member enrollment</span><span class="g-arr">→</span><span class="g-tgt">inscripción de miembros</span><span class="g-pair">EN/ES</span></div>
+          <div class="g-row"><span class="g-src">health plan</span><span class="g-arr">→</span><span class="g-tgt">plan de salud</span><span class="g-pair">EN/ES</span></div>
+          <div class="g-row"><span class="g-src">prior authorization</span><span class="g-arr">→</span><span class="g-tgt">autorización previa</span><span class="g-pair">EN/ES</span></div>
+          <div class="g-row"><span class="g-src">claim form</span><span class="g-arr">→</span><span class="g-tgt">formulario de reclamación</span><span class="g-pair">EN/ES</span></div>
+          <div class="g-row"><span class="g-src">benefit period</span><span class="g-arr">→</span><span class="g-tgt">período de beneficios</span><span class="g-pair">EN/ES</span></div>
+          <div class="g-row"><span class="g-src">deductible</span><span class="g-arr">→</span><span class="g-tgt">deducible</span><span class="g-pair">EN/ES</span></div>
+          <div class="g-row"><span class="g-src">copayment</span><span class="g-arr">→</span><span class="g-tgt">copago</span><span class="g-pair">EN/ES</span></div>
+          <div class="g-row"><span class="g-src">out-of-pocket maximum</span><span class="g-arr">→</span><span class="g-tgt">límite de gastos de bolsillo</span><span class="g-pair">EN/ES</span></div>
+          <div class="g-row"><span class="g-src">network provider</span><span class="g-arr">→</span><span class="g-tgt">proveedor en red</span><span class="g-pair">EN/ES</span></div>
+          <div class="g-row"><span class="g-src">explanation of benefits</span><span class="g-arr">→</span><span class="g-tgt">explicación de beneficios</span><span class="g-pair">EN/ES</span></div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card">
+          <div class="card-hd"><div class="card-title">+ Add New Term</div></div>
+          <div class="card-body" style="display:flex;flex-direction:column;gap:11px;">
+            <div><label class="flbl">Source Term</label><input type="text" placeholder="e.g. out-of-pocket maximum"></div>
+            <div><label class="flbl">Target Translation</label><input type="text" placeholder="e.g. límite de gastos de bolsillo"></div>
+            <div><label class="flbl">Context Note (optional)</label><input type="text" placeholder="When to use this term…"></div>
+            <button class="btn btn-primary" style="width:100%;justify-content:center;">Save to Glossary</button>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-hd"><div class="card-title">📦 CAT Tool Interoperability</div></div>
+          <div class="card-body" style="display:flex;flex-direction:column;gap:8px;">
+            <div class="info-box ib-sky" style="font-size:11.5px;margin-bottom:4px;"><span>🔗</span><span>Import/export in standard CAT tool formats for full interoperability.</span></div>
+            <button class="btn btn-outline" style="width:100%;justify-content:center;">⬇ Export as TBX</button>
+            <button class="btn btn-outline" style="width:100%;justify-content:center;">⬇ Export as TMX</button>
+            <button class="btn btn-outline" style="width:100%;justify-content:center;">⬇ Export as XLIFF</button>
+            <button class="btn btn-outline" style="width:100%;justify-content:center;">⬇ Export as JSON / CSV</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ PROFILES ══ -->
+  <div class="view content" id="view-profiles">
+    <div class="pg-hd a1"><div><div class="pg-title">Style &amp; Tone Profiles</div><div class="pg-sub">Bundle glossaries, style rules and TMs into reusable configurations per team or project</div></div><button class="btn btn-primary">+ New Profile</button></div>
+    <div class="card a2" style="margin-bottom:18px;">
+      <div class="card-hd"><div class="card-title">🎨 Select Tone</div><span style="font-size:11.5px;color:var(--ink4);">As specified in the problem statement</span></div>
+      <div class="card-body">
+        <div class="p-grid" style="grid-template-columns:repeat(4,1fr);">
+          <div class="p-tile on"><div class="p-em">📋</div><div class="p-nm">Formal</div><div class="p-ds">Professional, no contractions</div></div>
+          <div class="p-tile"><div class="p-em">🏛️</div><div class="p-nm">Official</div><div class="p-ds">Regulatory &amp; legal</div></div>
+          <div class="p-tile"><div class="p-em">💬</div><div class="p-nm">Conversational</div><div class="p-ds">Friendly, natural tone</div></div>
+          <div class="p-tile"><div class="p-em">⚙️</div><div class="p-nm">Technical</div><div class="p-ds">Domain-specific precision</div></div>
+          <div class="p-tile"><div class="p-em">📱</div><div class="p-nm">Social</div><div class="p-ds">Engaging, casual writing</div></div>
+          <div class="p-tile"><div class="p-em">😊</div><div class="p-nm">Friendly</div><div class="p-ds">Warm, approachable</div></div>
+          <div class="p-tile"><div class="p-em">🤝</div><div class="p-nm">Diplomatic</div><div class="p-ds">Tactful, measured language</div></div>
+          <div class="p-tile"><div class="p-em">✨</div><div class="p-nm">Custom</div><div class="p-ds">AI-generated from sample</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="g2 a3">
+      <div class="card">
+        <div class="card-hd"><div class="card-title">📋 Formal Profile — Active Rules</div></div>
+        <div class="card-body" style="display:flex;flex-direction:column;gap:8px;">
+          <div class="rule"><span class="rchk">✓</span> Predefined: Use formal register throughout — no contractions</div>
+          <div class="rule"><span class="rchk">✓</span> Predefined: Avoid colloquial expressions and slang</div>
+          <div class="rule"><span class="rchk">✓</span> Predefined: Preserve all numerical formats exactly</div>
+          <div class="rule"><span class="rchk">✓</span> Predefined: Maintain passive voice constructions where present</div>
+          <div class="rule"><span class="rchk">✓</span> Custom: Use "usted" (formal you) not "tú" in Spanish</div>
+          <button class="btn btn-outline btn-sm" style="align-self:flex-start;margin-top:4px;">+ Add Custom Rule</button>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-hd"><div class="card-title">✨ AI-Generate Style Rules</div></div>
+        <div class="card-body" style="display:flex;flex-direction:column;gap:12px;">
+          <div class="info-box ib-amber"><span>💡</span><span>Paste sample brand text — the AI analyses your tone and generates matching style rules automatically.</span></div>
+          <div><label class="flbl">Sample Brand Text</label><textarea placeholder="Paste a paragraph or two that represents your company&#39;s writing style…"></textarea></div>
+          <button class="btn btn-amber" style="align-self:flex-start;">✨ Generate Style Rules with AI</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ LEARNING ══ -->
+  <div class="view content" id="view-learning">
+    <div class="pg-hd a1"><div><div class="pg-title">Train &amp; Learn Continuously</div><div class="pg-sub">Every approved translation updates TM, enriches glossary and batches corrections for LLM fine-tuning</div></div></div>
+    <div class="stats a2">
+      <div class="stat s-sage"><div class="sv v-sage">3,842</div><div class="sl">TM Pairs Stored</div></div>
+      <div class="stat s-sky"><div class="sv v-sky">247</div><div class="sl">Glossary Enrichments</div></div>
+      <div class="stat s-amber"><div class="sv v-amber">89</div><div class="sl">Corrections Batched</div></div>
+      <div class="stat s-plum"><div class="sv v-plum">+12%</div><div class="sl">TM Match Rate Growth</div></div>
+    </div>
+    <div class="g-left a3">
+      <div class="col">
+        <div class="card">
+          <div class="card-hd"><div class="card-title">🔄 Recent Learning Events</div></div>
+          <div>
+            <div class="log-row"><span class="log-t">2m ago</span><span class="log-e">Segment approved — "Member enrollment process…" (EN→ES) added to Translation Memory</span><span class="log-tag" style="background:var(--sage-l);color:var(--sage)">TM Update</span></div>
+            <div class="log-row"><span class="log-t">8m ago</span><span class="log-e">Glossary enriched — "proveedor en red" confirmed for "network provider" (EN/ES)</span><span class="log-tag" style="background:var(--sky-l);color:var(--sky)">Glossary</span></div>
+            <div class="log-row"><span class="log-t">15m ago</span><span class="log-e">12 corrections batched and queued for LLM fine-tuning</span><span class="log-tag" style="background:var(--amber-l);color:var(--amber)">Finetune</span></div>
+            <div class="log-row"><span class="log-t">1h ago</span><span class="log-e">48 segments from Health_Plan_Contract_v3.docx approved → TM seeded</span><span class="log-tag" style="background:var(--sage-l);color:var(--sage)">TM Update</span></div>
+            <div class="log-row"><span class="log-t">2h ago</span><span class="log-e">TM versioning snapshot created — rollback available</span><span class="log-tag" style="background:var(--plum-l);color:var(--plum)">TM Version</span></div>
+            <div class="log-row"><span class="log-t">1d ago</span><span class="log-e">Bulk import — 200 bilingual pairs from legacy documents seeded TM</span><span class="log-tag" style="background:var(--sage-l);color:var(--sage)">TM Update</span></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-hd"><div class="card-title">🔁 How the Learning Loop Works</div></div>
+          <div class="card-body" style="display:flex;flex-direction:column;gap:8px;">
+            <div class="rule"><span style="color:var(--sage);font-weight:700;font-size:13px;">1</span> Linguist approves or edits a translated segment</div>
+            <div class="rule"><span style="color:var(--sage);font-weight:700;font-size:13px;">2</span> Translation Memory is updated instantly</div>
+            <div class="rule"><span style="color:var(--sage);font-weight:700;font-size:13px;">3</span> New terms are suggested to the glossary</div>
+            <div class="rule"><span style="color:var(--sage);font-weight:700;font-size:13px;">4</span> Corrections are batched for optional incremental LLM fine-tuning</div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card">
+          <div class="card-hd"><div class="card-title">📚 Bulk Training Import</div></div>
+          <div class="card-body" style="display:flex;flex-direction:column;gap:13px;">
+            <div style="font-size:12.5px;color:var(--ink3);line-height:1.7;">Import existing bilingual document pairs to seed the Translation Memory and improve AI output from day one.</div>
+            <div class="dropzone" style="padding:26px;"><div class="dz-icon" style="font-size:26px;">📂</div><div class="dz-title" style="font-size:13.5px;">Drop bilingual files here</div><div class="dz-sub">TMX · XLIFF · TBX · bilingual DOCX</div></div>
+            <div style="display:flex;gap:8px;">
+              <button class="btn btn-outline" style="flex:1;justify-content:center;">Import TMX</button>
+              <button class="btn btn-outline" style="flex:1;justify-content:center;">Import XLIFF</button>
+              <button class="btn btn-outline" style="flex:1;justify-content:center;">Import TBX</button>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-hd"><div class="card-title">⚙️ TM Settings</div></div>
+          <div class="card-body" style="display:flex;flex-direction:column;gap:11px;">
+            <div><label class="flbl">Fuzzy Match Threshold</label><select><option>75% — More suggestions</option><option>85% — Balanced (default)</option><option>95% — High confidence only</option></select></div>
+            <div style="display:flex;gap:8px;"><button class="btn btn-outline btn-sm" style="flex:1;justify-content:center;">📸 Create TM Snapshot</button><button class="btn btn-outline btn-sm" style="flex:1;justify-content:center;">↩ Rollback TM</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ ANALYTICS ══ -->
+  <div class="view content" id="view-analytics">
+    <div class="pg-hd a1"><div><div class="pg-title">Analytics Dashboard</div><div class="pg-sub">TM leverage rate · Linguist productivity · Quality trends · Cost savings estimator</div></div><button class="btn btn-outline">⬇ Export Report</button></div>
+    <div class="stats a2">
+      <div class="stat s-sage"><div class="sv v-sage">73%</div><div class="sl">TM Leverage Rate</div></div>
+      <div class="stat s-sky"><div class="sv v-sky">42</div><div class="sl">Docs This Month</div></div>
+      <div class="stat s-amber"><div class="sv v-amber">6.2h</div><div class="sl">Avg Time Saved / Doc</div></div>
+      <div class="stat s-plum"><div class="sv v-plum">₹84K</div><div class="sl">Estimated Cost Saved</div></div>
+    </div>
+    <div class="g2 a3">
+      <div class="card">
+        <div class="card-hd"><div class="card-title">📈 TM Leverage Over Time</div></div>
+        <div class="card-body">
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <div style="display:flex;align-items:center;gap:10px;"><span style="font-size:11.5px;color:var(--ink4);font-family:var(--mono);width:50px;">Jan</span><div class="pb-wrap" style="flex:1"><div class="pb-fill" style="width:55%;background:var(--sage)"></div></div><span style="font-size:11.5px;font-weight:700;color:var(--sage);width:36px;">55%</span></div>
+            <div style="display:flex;align-items:center;gap:10px;"><span style="font-size:11.5px;color:var(--ink4);font-family:var(--mono);width:50px;">Feb</span><div class="pb-wrap" style="flex:1"><div class="pb-fill" style="width:61%;background:var(--sage)"></div></div><span style="font-size:11.5px;font-weight:700;color:var(--sage);width:36px;">61%</span></div>
+            <div style="display:flex;align-items:center;gap:10px;"><span style="font-size:11.5px;color:var(--ink4);font-family:var(--mono);width:50px;">Mar</span><div class="pb-wrap" style="flex:1"><div class="pb-fill" style="width:73%;background:var(--sage)"></div></div><span style="font-size:11.5px;font-weight:700;color:var(--sage);width:36px;">73%</span></div>
+          </div>
+          <div class="info-box ib-sage" style="margin-top:16px;font-size:11.5px;"><span>📈</span><span>TM match rate improved by <strong>+18%</strong> over 3 months as the Translation Memory grew from approved translations.</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-hd"><div class="card-title">👤 Linguist Productivity</div></div>
+        <div class="card-body">
+          <div class="metric-row">
+            <div class="metric"><div class="metric-val" style="color:var(--sage)">248</div><div class="metric-lbl">Segs / Day</div></div>
+            <div class="metric"><div class="metric-val" style="color:var(--sky)">4.2s</div><div class="metric-lbl">Avg / Segment</div></div>
+            <div class="metric"><div class="metric-val" style="color:var(--amber)">96%</div><div class="metric-lbl">Approval Rate</div></div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:9px;margin-top:4px;">
+            <div><div style="display:flex;justify-content:space-between;margin-bottom:5px;"><span style="font-size:12px;color:var(--ink3);font-weight:600;">Quality Trend</span><span style="font-size:11.5px;color:var(--sage);font-weight:700;">↑ Improving</span></div><div class="pb-wrap"><div class="pb-fill" style="width:82%;background:var(--sage)"></div></div></div>
+            <div><div style="display:flex;justify-content:space-between;margin-bottom:5px;"><span style="font-size:12px;color:var(--ink3);font-weight:600;">Cost Savings vs Manual</span><span style="font-size:11.5px;color:var(--plum);font-weight:700;">68%</span></div><div class="pb-wrap"><div class="pb-fill" style="width:68%;background:var(--plum)"></div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<script>
+const pages=['dashboard','upload','quality','editor','qa','backtranslate','glossary','profiles','learning','analytics'];
+const labels={dashboard:'Dashboard',upload:'Upload & Parse',quality:'Quality Check',editor:'Translate & Review',qa:'Post-Translation QA',backtranslate:'Back-Translation',glossary:'Glossary',profiles:'Style Profiles',learning:'Train & Learn',analytics:'Analytics'};
+const ni={dashboard:0,upload:1,quality:2,editor:3,qa:4,backtranslate:5,glossary:6,profiles:7,learning:8,analytics:9};
+
+function go(name){
+  pages.forEach(p=>document.getElementById('view-'+p).classList.remove('active'));
+  document.getElementById('view-'+name).classList.add('active');
+  document.getElementById('bc').textContent=labels[name];
+  document.querySelectorAll('.nav-item').forEach(i=>i.classList.remove('active'));
+  const items=document.querySelectorAll('.nav-item');
+  if(ni[name]!==undefined)items[ni[name]].classList.add('active');
+  const v=document.getElementById('view-'+name);
+  ['a1','a2','a3','a4'].forEach(c=>v.querySelectorAll('.'+c).forEach(el=>{el.style.animation='none';void el.offsetHeight;el.style.animation=''}));
+}
+
+function fakeUpload(){
+  const el=document.getElementById('fu-item');
+  el.style.display='flex';
+  setTimeout(()=>{
+    document.getElementById('fu-meta').textContent='186 segments extracted · 0.9 MB';
+    const sb=document.getElementById('fu-status');
+    sb.className='s-badge sb-done';
+    sb.innerHTML='<div class="bdot d-sage"></div>Parsed';
+  },2000);
+}
+
+document.querySelectorAll('.p-tile').forEach(t=>{
+  t.addEventListener('click',()=>{
+    t.closest('.p-grid').querySelectorAll('.p-tile').forEach(x=>x.classList.remove('on'));
+    t.classList.add('on');
+  });
+});
+
+document.querySelectorAll('.l-chip').forEach(c=>{
+  c.addEventListener('click',()=>{
+    c.closest('.l-chips').querySelectorAll('.l-chip').forEach(x=>x.classList.remove('on'));
+    c.classList.add('on');
+  });
+});
+
+document.querySelectorAll('.seg').forEach(s=>{
+  s.addEventListener('click',()=>{
+    const idx=[...s.parentElement.children].indexOf(s);
+    document.querySelectorAll('.e-col').forEach(col=>{
+      col.querySelectorAll('.seg').forEach(x=>x.classList.remove('active'));
+      const t=col.querySelectorAll('.seg')[idx];
+      if(t)t.classList.add('active');
+    });
+  });
+});
+</script>
+
+
+</body></html>
