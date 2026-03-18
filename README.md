@@ -1,0 +1,240 @@
+# 🌐 LinguaAI — AI-Powered Translation Studio
+### INSPIRON 5.0 — National Level Hackathon | Problem Statement 02
+**Computer Society of India · COEP Tech Student Chapter · Domain: Enterprise AI / NLP**
+
+🔗 **Live Demo:** https://vaishnavi27711.github.io/linguaai
+
+---
+
+> **Core Challenge:** Enterprise translation workflows suffer from inconsistent terminology, no translation reuse, source quality issues, disconnected workflows, and no continuous learning. Build an AI-powered translation studio that validates source quality, reuses historical translations via RAG, translates with glossary and style enforcement, and continuously learns from human-approved corrections.
+
+---
+
+## 📌 The Problem
+
+Organizations operating across multilingual markets rely on accurate, consistent document translation. The volume of content requiring translation — contracts, member communications, regulatory filings, marketing materials — is growing rapidly, but translation workflows remain fragmented and inefficient.
+
+| Problem | What Goes Wrong |
+|---|---|
+| **Inconsistent Terminology** | Same term translated differently — e.g. "PM" vs "P.M." vs "p.m." — leading to confusion and compliance risks |
+| **No Translation Reuse** | Previously approved translations not surfaced for new projects. Linguists re-translate identical content, wasting time and introducing variation |
+| **Source Quality Issues** | Spelling errors, inconsistent punctuation, missing spaces, formatting issues multiply across every target language |
+| **Disconnected Workflows** | Translation, proofreading, approval, and dictionary updates happen in separate tools with no unified audit trail |
+| **No Continuous Learning** | Translation models and glossaries remain static with no mechanism to improve from approved corrections |
+
+---
+
+## 🏗️ System Architecture
+
+```mermaid
+flowchart TD
+    A[📄 Upload Document\nPDF / DOCX] --> B[Document Parser\nExtract segments\nPreserve headings · tables · lists]
+
+    B --> C{Source Quality\nValidator}
+    C -->|Issues found| D[🔴 Issue Dashboard\nSpell · Consistency\nPunctuation · Formatting\nSeverity levels · AI-fix]
+    C -->|Clean| E[Segment Splitter\nSentence & phrase level]
+    D -->|Manual or AI-assisted resolution| E
+
+    E --> F{RAG Pipeline\n1 Segment\n2 Generate Embeddings\n3 Vector Search TM\n4 Classify Match}
+
+    F -->|Exact Match 100%| G[✅ Auto-fill from TM]
+    F -->|Fuzzy Match 75–99%| H[🟡 Suggest to linguist]
+    F -->|New Segment| I[LLM Translation\nClaude · Gemini · GPT-4o\nor Ollama locally]
+
+    subgraph Enforcement Layer
+        J[📖 Glossary\nPer language pair\nTBX · JSON\nConflict detection]
+        K[🎨 Style & Tone Profile\nFormal · Official · Conversational\nTechnical · Social · Friendly · Diplomatic]
+    end
+
+    I --> Enforcement Layer
+    Enforcement Layer --> L[🌍 Translated Output]
+    G --> L
+    H --> L
+
+    L --> M[✏️ Side-by-Side Editor\nAccept · Edit · Reject per segment\nMulti-level approval · Audit trail]
+
+    M --> N[✅ Post-Translation QA\nTag · Number · Length · Cross-doc]
+    N --> O[🔁 Back-Translation Verification]
+
+    O -->|Approved| P[🔄 Continuous Learning\nUpdate TM · Enrich Glossary\nBatch for LLM fine-tuning]
+
+    P --> Q[📦 Format-Preserved Export\nDOCX · PDF · JSON]
+
+    style A fill:#2d5e3e,color:#fff
+    style I fill:#1e3a5f,color:#fff
+    style P fill:#5a2d82,color:#fff
+    style Q fill:#2d5e3e,color:#fff
+```
+
+---
+
+## ✨ Core Features
+
+### 1. 📥 Upload & Parse Documents
+- Accepts **PDF** and **DOCX** files
+- Extracts translatable content while **preserving structure** — headings, tables, lists
+- Segments source text at sentence and phrase level for granular TM matching
+- **Source Document Improvement** *(Bonus)* — AI-powered grammar correction before translation
+
+### 2. 🔍 Source Quality Validation Engine
+- **Context-aware spell check** with domain-specific terminology support
+- **Consistency analysis** — flags terminology and formatting variations (e.g. "PM" vs "P.M." vs "p.m.")
+- **Punctuation & grammar validation** — missing spaces, double spaces, inconsistent comma usage
+- **Formatting checks** — date formats, number formats, capitalisation patterns
+- Visual issue dashboard with **High / Medium / Low severity** classification and batch AI-fix suggestions
+
+### 3. 🧠 Translation Memory + RAG Pipeline
+- **RAG Pipeline:** Segment → Generate Embeddings → Vector Search TM → Classify (Exact / Fuzzy / New) → LLM for unmatched segments
+- Stores every approved source–target pair at sentence and phrase level
+- **Exact match (100%)** → auto-fill · **Fuzzy match (75–99%)** → suggest to linguist
+- TM versioning with rollback · Customisable match thresholds per project
+
+### 4. 🌍 Translate with LLM
+- Supports **Claude (Anthropic), Gemini 1.5 Flash (Google), GPT-4o (OpenAI), or Ollama locally**
+- Supports multiple target languages: **Spanish, Japanese, French, German, Portuguese, Italian, Korean**
+- Style/tone profile injected directly into system prompt
+
+### 5. 📖 Glossary & Terminology Management
+- Per-language-pair glossaries with source term, target term, and context notes
+- LLM **constrained via prompt engineering** to use approved terms
+- Grammatical context adaptation · Conflict detection · Auto-suggest
+- **Import/export in TBX, TMX, XLIFF** for CAT tool interoperability
+
+### 6. 🎨 Style & Tone Profiles
+- Tone options: **Formal · Official · Conversational · Technical · Social · Friendly · Diplomatic**
+- Predefined + custom free-text style rules
+- Bundle glossaries, style rules, and TMs into **reusable profiles per project or team**
+- **AI-generated style rules** from sample brand text
+
+### 7. ✅ Proofreading & Approval Workflow
+- **Side-by-side editor** — accept/edit/reject per segment
+- **Multi-level approval workflow** with full audit trail
+- On approval: TM updated, glossary enriched, corrections batched for fine-tuning
+
+### 8. 🔄 Train & Learn Continuously
+- Import bilingual document pairs *(TMX, XLIFF, TBX)* to seed TM from day one
+- After each approval: update TM → enrich glossary → batch for optional LLM fine-tuning
+- TM versioning with rollback
+
+### 9. ✅ Post-Translation QA *(Bonus)*
+- Tag consistency, number accuracy, length validation, cross-document consistency
+
+### 10. 🔁 Back-Translation Verification *(Bonus)*
+- Three-way comparison: Original Source vs Translation vs Back-Translated
+
+### 11. 📊 Analytics Dashboard *(Bonus)*
+- TM leverage rate, linguist productivity, quality trends, cost savings estimator
+
+---
+
+## 🚀 Quick Start
+
+### Prerequisites
+- **Python 3.10+** — [python.org](https://www.python.org/downloads/)
+- **pip** — comes with Python
+- **Git** — [git-scm.com](https://git-scm.com/)
+- **Virtual environment** — recommended
+- **An LLM API key** — choose one:
+  - [Anthropic Claude](https://console.anthropic.com/) — recommended
+  - [Google Gemini](https://aistudio.google.com/app/apikey) — free tier available
+  - [OpenAI GPT-4o](https://platform.openai.com/)
+  - [Ollama](https://ollama.ai) — run locally, completely free, no API key needed
+- **Node.js 18+** *(for Round 2 frontend)* — [nodejs.org](https://nodejs.org/)
+
+### Setup
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/vaishnavi27711/linguaai.git
+cd linguaai
+
+# 2. Create and activate virtual environment
+python -m venv venv
+source venv/bin/activate        # Mac / Linux
+venv\Scripts\activate           # Windows
+
+# 3. Install dependencies
+pip install -r requirements.txt
+
+# 4. Configure your API key
+cp .env.example .env
+# Open .env and fill in your chosen key
+
+# 5. Run the demo script
+python scripts/translate_with_glossary.py
+```
+
+---
+
+## 📁 Project Structure
+
+```
+linguaai/
+├── index.html                           # Live UI mockup (GitHub Pages)
+├── scripts/
+│   └── translate_with_glossary.py       # Demo: Glossary enforcement + LLM API
+├── glossaries/
+│   └── en_es_glossary.json              # English → Spanish domain glossary
+├── docs/
+│   └── architecture.md                  # Extended RAG pipeline notes
+├── requirements.txt
+├── .env.example
+├── .gitignore
+├── CONTRIBUTORS.md
+└── README.md
+```
+
+---
+
+## 🛠️ Full Tech Stack (Round 2)
+
+| Component | Recommended Approach |
+|---|---|
+| **Document Parsing** | python-docx, pdfplumber |
+| **Embeddings / RAG** | sentence-transformers + ChromaDB |
+| **LLM** | Claude · Gemini 1.5 Flash · GPT-4o · Ollama |
+| **Glossary & Style** | Prompt engineering — inject rules into LLM system prompt |
+| **Backend API** | FastAPI (Python) |
+| **Frontend** | React + TypeScript + TailwindCSS |
+| **Glossary Format** | TBX · TMX · XLIFF |
+| **Deployment** | Docker Compose · Vercel · Railway/Render |
+
+---
+
+## 📊 Evaluation Criteria Alignment
+
+| Criterion | Our Approach |
+|---|---|
+| **Innovation & Use of AI** | RAG pipeline + glossary-constrained prompting + continuous learning loop |
+| **Functionality** | Full pipeline: upload → validate → TM/RAG → translate → QA → back-translate → approve → export |
+| **Usability (UI/UX)** | Side-by-side editor, severity dashboard, one-click AI fixes, analytics |
+| **Scalability** | Modular pipeline; ChromaDB scales with TM; stateless FastAPI |
+| **Presentation Skills** | Architecture diagram, live demo, precise problem framing |
+| **Adherence to Timelines** | Round 1 submitted; Round 2 build plan defined |
+
+---
+
+## 🎁 Bonus Features Planned for Round 2
+
+- ✅ **Source Document Improvement** — AI grammar correction before translation
+- ✅ **Format-Preserved Export** — translated documents in original PDF/DOCX layout
+- ✅ **Real-Time Collaboration** — multiple linguists on the same document simultaneously
+- ✅ **CAT Tool Interoperability** — import/export TMX, XLIFF, TBX files
+- ✅ **Post-Translation QA** — tag consistency, number accuracy, length validation
+- ✅ **Analytics Dashboard** — TM leverage rate, productivity, quality trends, cost savings
+- ✅ **Back-Translation Verification** — three-way comparison view
+- ✅ **API Integration** — REST APIs for CI/CD and automated translation workflows
+
+---
+
+## 👥 Team — Coder's Clique
+
+| Name | GitHub |
+|---|---|
+| Vaishnavi Karande *(Team Lead)* | [@vaishnavi27711](https://github.com/vaishnavi27711) |
+| Samruddhi More | [@Samruddhi-2110](https://github.com/Samruddhi-2110) |
+| Sanskruti Kunjir | [@Sanskruti-Kunjir](https://github.com/Sanskruti-Kunjir) |
+| Pranali Wadghule | [@pranali-200610](https://github.com/pranali-200610) |
+
+> **Coder's Clique** · COEP Technological University, Pune
+> Submitted for INSPIRON 5.0 — Problem Statement 02: AI-Powered Translation Studio
