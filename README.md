@@ -2,8 +2,7 @@
 ### INSPIRON 5.0 — National Level Hackathon | Problem Statement 02
 **Computer Society of India · COEP Tech Student Chapter · Domain: Enterprise AI / NLP**
 
-🔗 **Live Demo:** https://vaishnavi27711.github.io/linguaai
-
+🔗 **Live Demo:** https://vaishnavi27711.github.io/LinguaAi/
 ---
 
 > **Core Challenge:** Enterprise translation workflows suffer from inconsistent terminology, no translation reuse, source quality issues, disconnected workflows, and no continuous learning. Build an AI-powered translation studio that validates source quality, reuses historical translations via RAG, translates with glossary and style enforcement, and continuously learns from human-approved corrections.
