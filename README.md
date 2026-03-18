@@ -28,42 +28,29 @@ Organizations operating across multilingual markets rely on accurate, consistent
 
 ```mermaid
 flowchart TD
-    A[📄 Upload Document\nPDF / DOCX] --> B[Document Parser\nExtract segments\nPreserve headings · tables · lists]
-
-    B --> C{Source Quality\nValidator}
-    C -->|Issues found| D[🔴 Issue Dashboard\nSpell · Consistency\nPunctuation · Formatting\nSeverity levels · AI-fix]
-    C -->|Clean| E[Segment Splitter\nSentence & phrase level]
-    D -->|Manual or AI-assisted resolution| E
-
-    E --> F{RAG Pipeline\n1 Segment\n2 Generate Embeddings\n3 Vector Search TM\n4 Classify Match}
-
-    F -->|Exact Match 100%| G[✅ Auto-fill from TM]
-    F -->|Fuzzy Match 75–99%| H[🟡 Suggest to linguist]
-    F -->|New Segment| I[LLM Translation\nClaude · Gemini · GPT-4o\nor Ollama locally]
-
-    subgraph Enforcement Layer
-        J[📖 Glossary\nPer language pair\nTBX · JSON\nConflict detection]
-        K[🎨 Style & Tone Profile\nFormal · Official · Conversational\nTechnical · Social · Friendly · Diplomatic]
-    end
-
-    I --> Enforcement Layer
-    Enforcement Layer --> L[🌍 Translated Output]
-    G --> L
-    H --> L
-
-    L --> M[✏️ Side-by-Side Editor\nAccept · Edit · Reject per segment\nMulti-level approval · Audit trail]
-
-    M --> N[✅ Post-Translation QA\nTag · Number · Length · Cross-doc]
-    N --> O[🔁 Back-Translation Verification]
-
-    O -->|Approved| P[🔄 Continuous Learning\nUpdate TM · Enrich Glossary\nBatch for LLM fine-tuning]
-
-    P --> Q[📦 Format-Preserved Export\nDOCX · PDF · JSON]
+    A[Upload Document PDF or DOCX] --> B[Document Parser]
+    B --> C{Source Quality Validator}
+    C -->|Issues found| D[Issue Dashboard with AI-fix]
+    C -->|Clean| E[Segment Splitter]
+    D -->|Resolved| E
+    E --> F{RAG Pipeline}
+    F -->|Exact Match 100 percent| G[Auto-fill from TM]
+    F -->|Fuzzy Match 75 to 99 percent| H[Suggest to linguist]
+    F -->|New Segment| I[LLM Translation]
+    I --> J[Glossary and Style Enforcement]
+    J --> K[Translated Output]
+    G --> K
+    H --> K
+    K --> L[Side-by-Side Editor]
+    L --> M[Post-Translation QA]
+    M --> N[Back-Translation Verification]
+    N -->|Approved| O[Continuous Learning Loop]
+    O --> P[Format-Preserved Export]
 
     style A fill:#2d5e3e,color:#fff
     style I fill:#1e3a5f,color:#fff
-    style P fill:#5a2d82,color:#fff
-    style Q fill:#2d5e3e,color:#fff
+    style O fill:#5a2d82,color:#fff
+    style P fill:#2d5e3e,color:#fff
 ```
 
 ---
