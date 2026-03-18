@@ -116,38 +116,18 @@ flowchart TD
 
 ## 🚀 Quick Start
 
-### Prerequisites
-- **Python 3.10+** — [python.org](https://www.python.org/downloads/)
-- **pip** — comes with Python
-- **Git** — [git-scm.com](https://git-scm.com/)
-- **Virtual environment** — recommended
-- **An LLM API key** — choose one:
-  - [Anthropic Claude](https://console.anthropic.com/) — recommended
-  - [Google Gemini](https://aistudio.google.com/app/apikey) — free tier available
-  - [OpenAI GPT-4o](https://platform.openai.com/)
-  - [Ollama](https://ollama.ai) — run locally, completely free, no API key needed
-- **Node.js 18+** *(for Round 2 frontend)* — [nodejs.org](https://nodejs.org/)
+### View the Live Demo
+🔗 [https://vaishnavi27711.github.io/linguaai](https://vaishnavi27711.github.io/linguaai)
 
-### Setup
+### Run the Demo Script Locally
+> Requires Python 3.10+ and an LLM API key (Claude / Gemini / GPT-4o / Ollama)
 
 ```bash
-# 1. Clone the repository
 git clone https://github.com/vaishnavi27711/linguaai.git
 cd linguaai
-
-# 2. Create and activate virtual environment
-python -m venv venv
-source venv/bin/activate        # Mac / Linux
-venv\Scripts\activate           # Windows
-
-# 3. Install dependencies
 pip install -r requirements.txt
-
-# 4. Configure your API key
 cp .env.example .env
-# Open .env and fill in your chosen key
-
-# 5. Run the demo script
+# Add your API key to .env
 python scripts/translate_with_glossary.py
 ```
 
@@ -218,7 +198,7 @@ linguaai/
 
 | Name | GitHub |
 |---|---|
-| Vaishnavi Karande *(Team Lead)* | [@vaishnavi27711](https://github.com/vaishnavi27711) |
+| Vaishnavi Karande *(Team Leader)* | [@vaishnavi27711](https://github.com/vaishnavi27711) |
 | Samruddhi More | [@Samruddhi-2110](https://github.com/Samruddhi-2110) |
 | Sanskruti Kunjir | [@Sanskruti-Kunjir](https://github.com/Sanskruti-Kunjir) |
 | Pranali Wadghule | [@pranali-200610](https://github.com/pranali-200610) |
