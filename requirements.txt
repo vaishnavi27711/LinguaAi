@@ -1,0 +1,17 @@
+# ── LLM Providers (install whichever you are using) ──
+anthropic>=0.25.0          # Claude — recommended
+google-generativeai>=0.7.0 # Gemini — free tier available
+openai>=1.0.0              # GPT-4o
+# Ollama runs locally — no pip install needed. See https://ollama.ai
+
+# ── Core dependencies ──
+python-dotenv>=1.0.0       # Load .env file
+requests>=2.31.0           # HTTP calls (used for Ollama)
+
+# ── Round 2 dependencies (not needed for demo script) ──
+# sentence-transformers>=2.7.0   # Embeddings for RAG pipeline
+# chromadb>=0.5.0                # Vector database for Translation Memory
+# python-docx>=1.1.0             # Parse and write DOCX files
+# pdfplumber>=0.10.0             # Parse PDF files
+# fastapi>=0.111.0               # Backend API
+# uvicorn>=0.29.0                # ASGI server for FastAPI
